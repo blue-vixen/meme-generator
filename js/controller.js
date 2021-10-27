@@ -12,7 +12,7 @@ function onInit() {
 
 
 function renderCanvas() {
-    renderMeme()
+    renderImage(gCurrImg)
     gCtx.save()
     gCtx.restore()
 }
@@ -20,7 +20,7 @@ function renderCanvas() {
 function renderMeme() {
     var img = new Image()
     img.src = getImage();
-    console.log(img)
+    // console.log(img)
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
         drawText();
@@ -29,9 +29,17 @@ function renderMeme() {
 }
 
 
+function renderImage(url) {
+    var img = new Image()
+    img.src = url;
+    img.onload = () => {
+        gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
+        drawText();
+    }
+}
+
 function drawText() {
     var txt = getTxt();
-    console.log(txt)
     gCtx.lineWidth = 2;
     gCtx.strokeStyle = 'black';
     gCtx.fillStyle = 'white';
@@ -51,12 +59,18 @@ function onUpdateText(text) {
 
 function renderGallery() {
     var images = getImages();
-    console.log(images)
+    // console.log(images)
     var strHtml = '';
     strHtml += images.map(image => {
         return `<img src="${image.url}"  onclick="updateCanvas(${image.id})">`
     })
-    console.log(strHtml)
+    // console.log(strHtml)
 
     document.querySelector('.gallery-container').innerHTML = strHtml
+}
+
+function updateCanvas(imgId) {
+    var img = getImageById(imgId);
+    console.log(img)
+    renderImage(img.url)
 }

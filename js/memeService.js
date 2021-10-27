@@ -1,5 +1,9 @@
 'use strict'
 
+var gElCanvas
+var gCtx
+var gCurrImg = 'img/1.jpg'
+
 var gImgs = [
     {
         id: 1,
@@ -34,6 +38,12 @@ function getImages() {
 
 function getImage() {
     return gImgs[0].url;
+}
+
+function getImageById(imgId) {
+    var currImage = gImgs.find(image => image.id === imgId);
+    gCurrImg = currImage.url;
+    return currImage;
 }
 
 function getTxt() {
