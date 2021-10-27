@@ -37,30 +37,33 @@ body {
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
 }
 
-.line-operations {
+.editor-operations {
     width: 500px;
     height: 500px;
 }
 
 .clean-list {
     list-style: none;
+    display:flex;
 }
 
+.editor .btn {
+    font-family: fa;
+    font-size: 25px;
+}
 
 .increase-font::before {
-    font-family: fa;
-    font-size: 40px;
-    content: '\f067';
+    content: '\f031 \f067';
 }
 
 .decrease-font::before {
-    font-family: fa;
-    font-size: 40px;
-    content: '\f068';
+    content: '\f031 \f068';
 }
 
 .remove-line::before {
-    font-family: fa;
-    font-size: 40px;
     content: '\f1f8'
+}
+
+.add-line::before {
+content:'\f067'
 }
