@@ -5,16 +5,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="main.css">
     <title>MEMEGEN</title>
 </head>
 
 <body onload="onInit()">
-    <section class="canvas-container">
-        <label for="line-txt">Enter your text here:</label>
-        <input type="text" placeholder="Enter your text here" id="line-txt" name="line-txt"
-            oninput="onUpdateText(value)">
-        <canvas id="my-canvas" height="500" width="500"></canvas>
+    <section class="editor">
+        <section class="canvas-container">
+            <canvas id="my-canvas" height="500" width="500"></canvas>
+        </section>
+        <section class="line-operations">
+            <label for="line-txt">Enter your text here:</label>
+            <input type="text" placeholder="Enter your text here" id="line-txt" name="line-txt"
+                oninput="onUpdateText(value)">
+            <ul class="clean-list">
+                <li><button class="increase-font btn" onclick="onIncreaseFont()"></button></li>
+                <li><button class="decrease-font btn" onclick="onDecreaseFont()"></button></li>
+                <li><button class="remove-line btn" onclick="onRemoveLine()"></button></li>
+            </ul>
+        </section>
     </section>
     <section class="gallery-container"></section>
 

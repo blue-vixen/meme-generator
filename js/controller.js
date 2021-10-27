@@ -12,7 +12,10 @@ function onInit() {
 
 
 function renderCanvas() {
-    renderImage(gCurrImg)
+    if (!gCurrImg) {
+        gCtx.fillStyle = "#ede5ff"
+        gCtx.fillRect(0, 0, gElCanvas.width, gElCanvas.height)
+    } else renderImage(gCurrImg)
     gCtx.save()
     gCtx.restore()
 }
@@ -44,8 +47,8 @@ function drawText() {
     gCtx.strokeStyle = 'black';
     gCtx.fillStyle = 'white';
     gCtx.font = '40px Impact';
-    gCtx.fillText(txt, 50, 50);
-    gCtx.strokeText(txt, 50, 50);
+    gCtx.fillText(txt.toUpperCase(), 50, 50);
+    gCtx.strokeText(txt.toUpperCase(), 50, 50);
     gCtx.stroke();
 }
 
@@ -71,6 +74,5 @@ function renderGallery() {
 
 function updateCanvas(imgId) {
     var img = getImageById(imgId);
-    console.log(img)
     renderImage(img.url)
 }

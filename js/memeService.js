@@ -2,7 +2,7 @@
 
 var gElCanvas
 var gCtx
-var gCurrImg = 'img/1.jpg'
+var gCurrImg = ''
 
 var gImgs = [
     {
