@@ -10,7 +10,20 @@
 </head>
 
 <body onload="onInit()">
-    <script src="js/main.js"></script>
+    <section class="canvas-container">
+        <label for="line-txt">Enter your text here:</label>
+        <input type="text" placeholder="Enter your text here" id="line-txt" name="line-txt"
+            oninput="onUpdateText(value)">
+        <canvas id="my-canvas" height="500" width="500"></canvas>
+    </section>
+    <section class="gallery-container"></section>
+
+
+
+
+    <script src="js/mainService.js"></script>
+    <script src="js/memeService.js"></script>
+    <script src="js/controller.js"></script>
 </body>
 
 </html>
