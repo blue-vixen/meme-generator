@@ -15,9 +15,9 @@ nav {
 
 }
 
-main {
+/* main {
     height: 80vh;
-}
+} */
 
 footer {
     display: block;
@@ -26,12 +26,12 @@ footer {
 
 @font-face {
     font-family: 'fa';
-    src: url(../vendor/font-awesome/fonts/fontawesome-webfont.ttf);
+    src: url(./vendor/font-awesome/fonts/fontawesome-webfont.ttf);
 }
 
 @font-face {
     font-family: Roboto;
-    src: url(../fonts/Roboto-Regular.ttf);
+    src: url(./fonts/Roboto-Regular.ttf);
 }
 
 /* helpers */
@@ -46,9 +46,7 @@ footer {
 
 .editor {
     display: flex;
-    justify-content: center;
-    height: 100%;
-    
+    justify-content: center;    
 }
 
 .canvas-container {
@@ -88,7 +86,7 @@ footer {
 
 .gallery-container {
     display: grid;
-    grid-template-columns: repeat(6, 210px);
+    grid-template-columns: repeat(5, 210px);
     grid-auto-rows: minmax(210px, 1fr);
     grid-gap: 25px;
     grid-auto-flow: dense;
