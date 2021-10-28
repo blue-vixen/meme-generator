@@ -3,7 +3,7 @@
 }
 
 body {
-    background-color: aqua;
+    background-color:rgb(42, 165, 165);
 }
 
 
@@ -50,20 +50,35 @@ body {
 .editor .btn {
     font-family: fa;
     font-size: 25px;
+    width: 50px;
+    height: 50px;
 }
 
 .increase-font::before {
-    content: '\f031 \f067';
+    content: '\f031';
+    font-size: 40px;
 }
 
 .decrease-font::before {
-    content: '\f031 \f068';
+    content: '\f031';
 }
 
 .remove-line::before {
-    content: '\f1f8'
+    content: '\f1f8';
 }
 
 .add-line::before {
-content:'\f067'
+    content:'\f067';
+}
+
+.move-down::before {
+    content: '\f063';
+}
+
+.move-up::before{
+    content: '\f062';
+}
+
+.switch-line::before {
+    content:'\2191\2193'
 }

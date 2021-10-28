@@ -1,6 +1,6 @@
 'use strict'
 
-const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
+// const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
 
 function onInit() {
     console.log('lets meme!')
@@ -21,8 +21,9 @@ function renderCanvas() {
         gCtx.fillRect(0, 0, gElCanvas.width, gElCanvas.height)
         drawText();
     } else renderImage(gCurrImg)
-    gCtx.save()
-    gCtx.restore()
+    // gCtx.save()
+    // gCtx.restore()
+    renderSelectionRect();
     drawText();
 }
 
@@ -33,26 +34,49 @@ function renderImage(url) {
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
         drawText();
+        renderSelectionRect();
     }
 }
 
 function drawText() {
-    var txt = getTxt();
-    var fill = getFill();
-    var stroke = getStroke();
-    var fontSize = getFontSize();
-    var font = getFont();
-    const { pos, align } = gMeme.lines[0]
-    gCtx.lineWidth = 2;
-    gCtx.strokeStyle = stroke;
-    gCtx.fillStyle = fill;
-    gCtx.font = `${fontSize}px ${font}`;
-    gCtx.textAlign = align;
+    var lines = getLines();
+    lines.forEach((line) => {
+        const { txt, size, align, color, stroke, font, pos } = line;
+        gCtx.lineWidth = 2;
+        gCtx.setLineDash([]);
+        gCtx.strokeStyle = stroke;
+        gCtx.fillStyle = color;
+        gCtx.font = `${size}px ${font}`;
+        gCtx.textAlign = align;
+        line.width = gCtx.measureText(txt).width;
+        line.height = (gCtx.measureText(txt).fontBoundingBoxDescent) + (gCtx.measureText(txt).fontBoundingBoxAscent);
+        gCtx.fillText(txt.toUpperCase(), pos.x, pos.y);
+        gCtx.strokeText(txt.toUpperCase(), pos.x, pos.y);
+
+    })
+}
+
+
+function renderSelectionRect() {
+    var line = getCurrLine();
+    console.log(line);
+    const { txt, pos, width, height } = line;
+    console.log(pos)
     // var textWidth = gCtx.measureText(txt).width;
     // var textHeight = (gCtx.measureText(txt).fontBoundingBoxDescent) + (gCtx.measureText(txt).fontBoundingBoxAscent)
-    // console.log(textHeight);
-    gCtx.fillText(txt.toUpperCase(), pos.x, pos.y);
-    gCtx.strokeText(txt.toUpperCase(), pos.x, pos.y);
+    console.log(width, height);
+    drawRect(pos.x - width / 2 - 25, pos.y - height, width + 50, height + 20);
+
+}
+
+function drawRect(x, y, width, height) {
+    gCtx.beginPath();
+    gCtx.rect(x, y, width, height);
+    gCtx.setLineDash([10, 10]);
+    // gCtx.fillStyle = 'transparent';
+    // gCtx.fillRect(x, y, 150, 150);
+    gCtx.strokeStyle = 'black';
+    gCtx.stroke();
 }
 
 
@@ -90,65 +114,102 @@ function onDecreaseFont() {
     renderCanvas();
 }
 
-/* Drag and Drop - currently disabled */
 
+function onMoveDown() {
+    moveLineDown();
+    renderCanvas();
 
-function addListeners() {
-    addMouseListeners()
-    addTouchListeners()
 }
 
-function addMouseListeners() {
-    gElCanvas.addEventListener('mousemove', onMove)
-    gElCanvas.addEventListener('mousedown', onDown)
-    gElCanvas.addEventListener('mouseup', onUp)
+function onMove(direction) {
+    if (direction === 'up') moveLineUp()
+    else moveLineDown()
+    renderCanvas()
 }
 
-function addTouchListeners() {
-    gElCanvas.addEventListener('touchmove', onMove)
-    gElCanvas.addEventListener('touchstart', onDown)
-    gElCanvas.addEventListener('touchend', onUp)
+function onAddLine() {
+    addLine()
+    renderCanvas()
+}
+
+function onSwitch() {
+    switchLines()
+    renderCanvas()
+}
+
+function onRemoveLine() {
+    removeLine();
+    renderCanvas();
 }
 
 
-
-function onDown(ev) {
-    const pos = getEvPos(ev)
-    if (!isTextClicked(pos)) return
-    // console.log(isTextClicked(pos))
-    gMeme.lines[0].isDrag = true;
-    gStartPos = pos
-    document.body.style.cursor = 'grabbing'
-}
-
-function onMove(ev) {
-    const line = gMeme.lines[0];
-    if (line.isDrag) {
-        const pos = getEvPos(ev);
-        const dx = pos.x - gStartPos.x
-        const dy = pos.y - gStartPos.y
-        gStartPos = pos
-        renderCanvas()
-    }
-}
-
-function onUp() {
-    gMeme.lines[0].isDrag = false;
-    document.body.style.cursor = 'default'
-}
-
-function getEvPos(ev) {
+function givePos(ev) {
     var pos = {
         x: ev.offsetX,
         y: ev.offsetY
     }
-    if (gTouchEvs.includes(ev.type)) {
-        ev.preventDefault()
-        ev = ev.changedTouches[0]
-        pos = {
-            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
-            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
-        }
-    }
-    return pos
+    console.log(pos)
 }
+
+/* Drag and Drop - currently disabled */
+
+
+// function addListeners() {
+//     addMouseListeners()
+//     addTouchListeners()
+// }
+
+// function addMouseListeners() {
+//     gElCanvas.addEventListener('mousemove', onMove)
+//     gElCanvas.addEventListener('mousedown', onDown)
+//     gElCanvas.addEventListener('mouseup', onUp)
+// }
+
+// function addTouchListeners() {
+//     gElCanvas.addEventListener('touchmove', onMove)
+//     gElCanvas.addEventListener('touchstart', onDown)
+//     gElCanvas.addEventListener('touchend', onUp)
+// }
+
+
+
+// function onDown(ev) {
+//     const pos = getEvPos(ev)
+//     if (!isTextClicked(pos)) return
+//     // console.log(isTextClicked(pos))
+//     gMeme.lines[0].isDrag = true;
+//     gStartPos = pos
+//     document.body.style.cursor = 'grabbing'
+// }
+
+// function onMove(ev) {
+//     const line = gMeme.lines[0];
+//     if (line.isDrag) {
+//         const pos = getEvPos(ev);
+//         const dx = pos.x - gStartPos.x
+//         const dy = pos.y - gStartPos.y
+//         gStartPos = pos
+//         renderCanvas()
+//     }
+// }
+
+// function onUp() {
+//     gMeme.lines[0].isDrag = false;
+//     document.body.style.cursor = 'default'
+// }
+
+// function getEvPos(ev) {
+//     var pos = {
+//         x: ev.offsetX,
+//         y: ev.offsetY
+//     }
+//     if (gTouchEvs.includes(ev.type)) {
+//         ev.preventDefault()
+//         ev = ev.changedTouches[0]
+//         pos = {
+//             x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+//             y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
+//         }
+//     }
+//     return pos
+// }
