@@ -180,6 +180,17 @@ function downloadCanvas(elLink) {
     elLink.href = data;
 }
 
+// window.addEventListener('resize', () => {
+//     console.log('resized')
+//     resizeCanvas();
+//     renderCanvas();
+// });
+
+// function resizeCanvas() {
+//     var elContainer = document.querySelector('.canvas-container');
+//     gElCanvas.width = elContainer.offsetWidth - 20;
+//     gCanvas.height = elContainer.offsetHeight - 20
+// }
 
 /* Drag and Drop - currently disabled */
 

@@ -230,6 +230,12 @@ footer {
 /* mobile only */
 
 @media (max-width: 840px) {
+
+    #my-canvas {
+        width: 250px;
+        height: 250px;
+    }
+    
     .nav-bar {
         position: fixed;
         top: 0;
