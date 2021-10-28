@@ -156,11 +156,12 @@ footer {
 
 .increase-font::before {
     content: '\f031';
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .decrease-font::before {
     content: '\f031';
+    font-size: 14px;
 }
 
 .remove-line::before {
@@ -249,6 +250,7 @@ footer {
         justify-content: center;
         background-color: #FF9826;
         width: 100%;
+        z-index: 1000;
     }
 
     li.nav-bar {

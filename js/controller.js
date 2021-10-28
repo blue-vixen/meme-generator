@@ -158,6 +158,7 @@ function showGallery() {
     document.querySelector('.gallery').classList.remove('hide');
     document.querySelector('.editor').classList.add('hide');
     document.querySelector('.gallery-btn').classList.add('current-page');
+    document.body.classList.remove('menu-open');
 }
 
 function showEditor() {
@@ -178,10 +179,10 @@ function downloadCanvas(elLink) {
     elLink.href = data;
 }
 
-function onSaveMeme() {
-    const data = gElCanvas.toDataURL();
-    saveMeme(data);
-}
+// function onSaveMeme() {
+//     const data = gElCanvas.toDataURL();
+//     saveMeme(data);
+// }
 
 
 // function renderSavedMemes() {
