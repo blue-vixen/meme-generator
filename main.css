@@ -15,6 +15,10 @@ nav {
 
 }
 
+ul {
+    margin: 0 auto;
+}
+
 main {
     justify-content: center;
 }
@@ -99,6 +103,24 @@ footer {
    }
 
 
+.output-operations {
+       flex-direction: column;
+       align-items: stretch;
+   }
+
+.output-operations .btn {
+    text-align: center;
+    display: block;
+    margin: 10px;
+    font-size: 18px;
+    font-family: Roboto, sans-serif;
+    background-color: #FF9826;
+    color: white;
+    text-decoration: none;
+    padding: 6px 6px;
+    border-radius: 0.5em;
+
+}
 
 
 
@@ -117,16 +139,25 @@ footer {
     padding: 0;
 }
 
-.editor .btn {
+.line-operations .btn {
     font-family: fa;
-    font-size: 25px;
-    width: 50px;
-    height: 50px;
+    font-size: 15px;
+    width: 30px;
+    height: 30px;
 }
+
+.font-operations .btn {
+    font-family: fa;
+    font-size: 15px;
+    width: 30px;
+    height: 30px;
+}
+
+
 
 .increase-font::before {
     content: '\f031';
-    font-size: 40px;
+    font-size: 20px;
 }
 
 .decrease-font::before {
@@ -181,7 +212,18 @@ footer {
     content: '\2630';
 }
 
-.btn-menu::before{
+
+.btn-menu.close {
+    position: absolute;
+    top: 17px;
+    right: 20px;
+    color:white;
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+}
+
+.btn-menu.close::before{
     content: '\00d7';
 }
 
@@ -208,6 +250,7 @@ footer {
         color:white;
         display: block;
         padding: 70px;
+        font-size: 24px;
     }
 
     body.menu-open .nav-bar {

@@ -15,6 +15,7 @@
         <div class="nav-container">
             <div class="logo"><img src="logo.png" alt="MEMEGEN LOGO"></div>
             <ul class="clean-list nav-bar">
+                <button class="btn-menu close" onclick="toggleMenu()"></button>
                 <li><a href="#">Memes</a></li>
                 <li class="gallery-btn current-page"><a href="#" onclick="showGallery()">Gallery</a></li>
                 <li><a href="#">About</a></li>
@@ -39,10 +40,18 @@
                     <li><button class="add-line btn" onclick="onAddLine()" title="Add Line"></button></li>
                     <li><button class="remove-line btn" onclick="onRemoveLine()" title="Remove Line"></button></li>
                 </ul>
-                <ul class="font-operations clean-list">
+                <ul class="font-operations clean-list flex space-between">
                     <li><button class="increase-font btn" onclick="onIncreaseFont()" title="Enlarge Font"></button></li>
                     <li><button class="decrease-font btn" onclick="onDecreaseFont()" title="Reduce Font"></button></li>
-
+                    <li>Font</li>
+                    <li>Color</li>
+                    <li>Stroke</li>
+                </ul>
+                <ul class="output-operations clean-list">
+                    <li><a href="#" class="save-meme btn">Save</a></li>
+                    <li><a href="#" class="download-meme btn" onclick="downloadCanvas(this)"
+                            download="my-meme">Download</a></li>
+                    <li><a href="#" class="share btn">Share</a></li>
                 </ul>
             </section>
         </section>

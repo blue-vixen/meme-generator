@@ -173,6 +173,14 @@ function toggleMenu() {
     document.querySelector('.btn-menu').classList.toggle('burger');
 }
 
+
+function downloadCanvas(elLink) {
+    const data = gElCanvas.toDataURL();
+    console.log('data', data);
+    elLink.href = data;
+}
+
+
 /* Drag and Drop - currently disabled */
 
 
