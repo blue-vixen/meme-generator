@@ -157,15 +157,15 @@ function givePos(ev) {
 
 
 function showGallery() {
-    document.querySelector('.gallery-container').classList.toggle('hide');
+    document.querySelector('.gallery').classList.toggle('hide');
     document.querySelector('.editor').classList.toggle('hide');
-    document.querySelector('.gallery').classList.toggle('current-page');
+    document.querySelector('.gallery-btn').classList.toggle('current-page');
 }
 
 function showEditor() {
-    document.querySelector('.gallery-container').classList.toggle('hide');
+    document.querySelector('.gallery').classList.toggle('hide');
     document.querySelector('.editor').classList.toggle('hide');
-    document.querySelector('.gallery').classList.toggle('current-page');
+    document.querySelector('.gallery-btn').classList.toggle('current-page');
 }
 
 function toggleMenu() {
