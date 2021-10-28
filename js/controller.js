@@ -168,6 +168,11 @@ function showEditor() {
     document.querySelector('.gallery').classList.toggle('current-page');
 }
 
+function toggleMenu() {
+    document.body.classList.toggle('menu-open');
+    document.querySelector('.btn-menu').classList.toggle('burger');
+}
+
 /* Drag and Drop - currently disabled */
 
 
