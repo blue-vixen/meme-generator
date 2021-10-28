@@ -17,8 +17,10 @@ nav {
 
 
 main {
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
+
 footer {
     display: block;
     text-align: center;
@@ -61,7 +63,7 @@ footer {
 .nav-container {
     display: flex;
     justify-content: space-between;
-    /* align-items: center; */
+    align-items: center;
     margin: 0 25px;
     
 }
@@ -285,6 +287,13 @@ footer {
         grid-auto-flow: dense;
         margin:25px;
     }
+
+    /* .saved-memes-container img {
+        width: 210px;
+        height: 210px;
+        object-fit: cover;
+        border-radius: 10px;
+    } */
 
 
     .gallery-container img {

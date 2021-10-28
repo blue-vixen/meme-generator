@@ -12,6 +12,7 @@ function onInit() {
     renderCanvas()
     renderGallery();
     // addListeners()
+    // renderSavedMemes();
 }
 
 
@@ -60,12 +61,12 @@ function drawText() {
 
 function renderSelectionRect() {
     var line = getCurrLine();
-    console.log(line);
-    const { txt, pos, width, height } = line;
-    console.log(pos)
+    // console.log(line);
+    const { pos, width, height } = line;
+    // console.log(pos)
     // var textWidth = gCtx.measureText(txt).width;
     // var textHeight = (gCtx.measureText(txt).fontBoundingBoxDescent) + (gCtx.measureText(txt).fontBoundingBoxAscent)
-    console.log(width, height);
+    // console.log(width, height);
     drawRect(pos.x - width / 2 - 25, pos.y - height, width + 50, height + 20);
 
 }
@@ -90,13 +91,10 @@ function onUpdateText(text) {
 
 function renderGallery() {
     var images = getImages();
-    // console.log(images)
     var strHtml
     strHtml = images.map(image => {
         return `<img src="${image.url}" onclick="updateCanvas(${image.id})">`
     })
-    // console.log(strHtml)
-    console.log(strHtml)
     document.querySelector('.gallery-container').innerHTML = strHtml.join('');
 }
 
@@ -157,9 +155,9 @@ function givePos(ev) {
 
 
 function showGallery() {
-    document.querySelector('.gallery').classList.toggle('hide');
-    document.querySelector('.editor').classList.toggle('hide');
-    document.querySelector('.gallery-btn').classList.toggle('current-page');
+    document.querySelector('.gallery').classList.remove('hide');
+    document.querySelector('.editor').classList.add('hide');
+    document.querySelector('.gallery-btn').classList.add('current-page');
 }
 
 function showEditor() {
@@ -179,6 +177,24 @@ function downloadCanvas(elLink) {
     console.log('data', data);
     elLink.href = data;
 }
+
+function onSaveMeme() {
+    const data = gElCanvas.toDataURL();
+    saveMeme(data);
+}
+
+
+// function renderSavedMemes() {
+//     var memes = getSavedMemes();
+//     var strHtml = memes.map((meme) => {
+//         const { data, id } = meme;
+//         // console.log(data);
+//         return `<img src="${data}" class="saved-meme" onclick="restoreSavedMeme(${id})">`
+//     })
+
+//     console.log(strHtml);
+//     document.querySelector('.saved-memes-container').innerHTML = strHtml.join('');
+// }
 
 // window.addEventListener('resize', () => {
 //     console.log('resized')

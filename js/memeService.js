@@ -70,6 +70,8 @@ var gImgs = [
     },
 ]
 
+var gMemes = []
+
 var gMeme = {
     selectedImgId: 1,
     selectedLineIdx: 0,
@@ -87,6 +89,22 @@ var gMeme = {
         }
     ]
 }
+
+// function saveMeme(data) {
+//     console.log('saving...');
+//     var currMeme = gMeme;
+//     currMeme[data] = data;
+//     // currMeme[id] = gMemes.length + 1;
+//     console.log(currMeme.lines[0].txt);
+//     // gMemes.push(currMeme);
+//     // console.log(gMemes);
+//     // saveToStorage('memesDB', gMemes);
+// }
+
+// function getSavedMemes() {
+//     var memes = loadFromStorage('memesDB');
+//     return memes;
+// }
 
 function getImages() {
     return gImgs;
