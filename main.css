@@ -26,12 +26,12 @@ footer {
 
 @font-face {
     font-family: 'fa';
-    src: url(/vendor/font-awesome/fonts/fontawesome-webfont.ttf);
+    src: url(../vendor/font-awesome/fonts/fontawesome-webfont.ttf);
 }
 
 @font-face {
     font-family: Roboto;
-    src: url(/fonts/Roboto-Regular.ttf);
+    src: url(../fonts/Roboto-Regular.ttf);
 }
 
 /* helpers */
