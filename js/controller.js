@@ -41,7 +41,8 @@ function renderImage(url) {
 function drawText() {
     var lines = getLines();
     lines.forEach((line) => {
-        const { txt, size, align, color, stroke, font, pos } = line;
+        let { txt, size, align, color, stroke, font, pos } = line;
+        if (txt === '') txt = (document.getElementById("line-txt").getAttribute('placeholder'));
         gCtx.lineWidth = 2;
         gCtx.setLineDash([]);
         gCtx.strokeStyle = stroke;
@@ -130,12 +131,14 @@ function onMove(direction) {
 
 function onAddLine() {
     addLine()
+    document.querySelector('#line-txt').value = '';
     renderCanvas()
 }
 
 function onSwitch() {
-    switchLines()
-    renderCanvas()
+    var lineTxt = switchLines();
+    document.querySelector('#line-txt').value = lineTxt;
+    renderCanvas();
 }
 
 function onRemoveLine() {

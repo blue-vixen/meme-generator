@@ -75,7 +75,7 @@ var gMeme = {
     selectedLineIdx: 0,
     lines: [
         {
-            txt: 'Your text here',
+            txt: '',
             size: 40,
             align: 'center',
             color: 'white',
@@ -133,6 +133,7 @@ function switchLines() {
     if (gCurrLineIdx === gMeme.lines.length - 1) gCurrLineIdx = 0
     else gCurrLineIdx++
     console.log(gCurrLineIdx);
+    return gMeme.lines[gCurrLineIdx].txt;
 }
 
 function addLine() {
