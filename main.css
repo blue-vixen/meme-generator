@@ -3,33 +3,106 @@
 }
 
 body {
-    background-color:rgb(42, 165, 165);
+    background-color:white;
+    margin: 0;
+    font-family: Roboto, sans-serif;
+    line-height: 1.171;
 }
 
+nav {    
+    box-shadow: 0px 1px 0px 0px #DBDBDB;
+    margin-bottom: 50px;
+
+}
+
+main {
+    height: 80vh;
+}
+
+footer {
+    display: block;
+    text-align: center;
+}
 
 @font-face {
     font-family: 'fa';
     src: url(/vendor/font-awesome/fonts/fontawesome-webfont.ttf);
 }
 
+@font-face {
+    font-family: Roboto;
+    src: url(/fonts/Roboto-Regular.ttf);
+}
+
+/* helpers */
+
+.flex {
+    display: flex;
+}
+
+.flex.space-between {
+    justify-content: space-between;
+}
+
 .editor {
     display: flex;
     justify-content: center;
+    height: 100%;
+    
 }
 
 .canvas-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* height: 80vh; */
     align-items: center;
     margin-inline-end: 10px;
 }
 
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 25px;
+    
+}
+
+.nav-bar {
+    align-items: center;
+    
+}
+
+.nav-bar a {
+    text-decoration: none;
+    color: #989898;
+    font-family: Roboto, sans-serif;
+}
+
+.current-page a {
+    color: #FF9826;
+}
+
+.nav-bar > *:not(:last-child) {
+    margin-inline-end: 50px;
+}
+
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(6, 210px);
+    grid-auto-rows: minmax(210px, 1fr);
+    grid-gap: 25px;
+    grid-auto-flow: dense;
+    margin:25px;
+}
+
 
 .gallery-container img {
- width: 300x;
- height: 300px;
+ width: 210px;
+ height: 210px;
+ object-fit: cover;
+ border-radius: 10px;
+ /* grid-row: span 1;
+ grid-column: span 1; */
 }
 
 .gallery-container img:hover {
@@ -38,13 +111,18 @@ body {
 }
 
 .editor-operations {
-    width: 500px;
-    height: 500px;
+    display: flex;
+    flex-direction: column;
+    /* width: 500px;
+    height: 500px; */
+    background-color: #F8F8F8;
+    padding: 25px;
 }
 
 .clean-list {
     list-style: none;
     display:flex;
+    padding: 0;
 }
 
 .editor .btn {
@@ -81,4 +159,28 @@ body {
 
 .switch-line::before {
     content:'\2191\2193'
+}
+
+.nav-back {
+    text-decoration: none;
+    font-size: 14px;
+    position: relative;
+    top: 0px;
+    left: 0px;
+}
+
+.nav-back::before {
+    font-family: fa;    
+    content: '\f053';
+}
+
+.hide {
+    display: none;
+}
+
+#line-txt {
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 10px;
+
 }

@@ -90,18 +90,19 @@ function onUpdateText(text) {
 function renderGallery() {
     var images = getImages();
     // console.log(images)
-    var strHtml = '';
-    strHtml += images.map(image => {
-        return `<img src="${image.url}"  onclick="updateCanvas(${image.id})">`
+    var strHtml
+    strHtml = images.map(image => {
+        return `<img src="${image.url}" onclick="updateCanvas(${image.id})">`
     })
     // console.log(strHtml)
-
-    document.querySelector('.gallery-container').innerHTML = strHtml
+    console.log(strHtml)
+    document.querySelector('.gallery-container').innerHTML = strHtml.join('');
 }
 
 function updateCanvas(imgId) {
     var img = getImageById(imgId);
     renderImage(img.url)
+    showEditor();
 }
 
 function onIncreaseFont() {
@@ -149,6 +150,19 @@ function givePos(ev) {
         y: ev.offsetY
     }
     console.log(pos)
+}
+
+
+function showGallery() {
+    document.querySelector('.gallery-container').classList.toggle('hide');
+    document.querySelector('.editor').classList.toggle('hide');
+    document.querySelector('.gallery').classList.toggle('current-page');
+}
+
+function showEditor() {
+    document.querySelector('.gallery-container').classList.toggle('hide');
+    document.querySelector('.editor').classList.toggle('hide');
+    document.querySelector('.gallery').classList.toggle('current-page');
 }
 
 /* Drag and Drop - currently disabled */

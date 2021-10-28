@@ -11,12 +11,62 @@ var gImgs = [
     {
         id: 1,
         url: 'img/1.jpg',
-        keywords: []
+        keywords: ['trump', 'angry', 'politics']
     },
     {
         id: 2,
         url: 'img/2.jpg',
-        keywords: []
+        keywords: ['dog', 'puppy', 'cute', 'love', 'kiss']
+    },
+    {
+        id: 3,
+        url: 'img/3.jpg',
+        keywords: ['dog', 'baby', 'cute', 'sleep']
+    },
+    {
+        id: 4,
+        url: 'img/4.jpg',
+        keywords: ['cat', 'keyboard', 'tired']
+    },
+    {
+        id: 5,
+        url: 'img/5.jpg',
+        keywords: ['baby', 'success', 'happy']
+    },
+    {
+        id: 6,
+        url: 'img/6.jpg',
+        keywords: ['man', 'aliens', 'blame']
+    },
+    {
+        id: 7,
+        url: 'img/7.jpg',
+        keywords: ['baby', 'surprise']
+    },
+    {
+        id: 8,
+        url: 'img/8.jpg',
+        keywords: ['charlie and the chocolate factory', 'tell me again', 'wonka', 'condescending', 'gene wilder']
+    },
+    {
+        id: 9,
+        url: 'img/9.jpg',
+        keywords: ['baby', 'laughing', 'evil']
+    },
+    {
+        id: 10,
+        url: 'img/10.jpg',
+        keywords: ['obama', 'laughing']
+    },
+    {
+        id: 15,
+        url: 'img/15.jpg',
+        keywords: ['lord of the rings', 'one does not simply', 'boromir']
+    },
+    {
+        id: 18,
+        url: 'img/18.jpg',
+        keywords: ['everywhere', 'buzz', 'toy story']
     },
 ]
 
