@@ -168,20 +168,12 @@ function showArea(clickedEl, area) {
 }
 
 
-// function showGallery(el, area) {
-//     console.log(area)
-//     console.log(el)
-//     el.style.color = 'blue'
-//     var areas = document.querySelectorAll('.area');
-//     // console.log(areas)
-//     areas.forEach(area => {
-//         area.classList.add('hide');
-//     });
-//     document.querySelector('.gallery').classList.remove('hide');
-//     document.querySelector('.gallery-btn').classList.add('current-page');
-//     document.querySelector('.memes-btn').classList.remove('current-page');
-
-// }
+function showGallery() {
+    document.querySelector('.gallery').classList.remove('hide');
+    document.querySelector('.editor').classList.add('hide');
+    document.querySelector('.gallery-btn').classList.add('current-page');
+    document.querySelector('.memes-btn').classList.remove('current-page');
+}
 
 function showEditor() {
     document.querySelector('.gallery').classList.toggle('hide');

@@ -24,6 +24,8 @@ main {
 footer {
     display: block;
     text-align: center;
+    position: absolute;
+    bottom: 0;
 }
 
 @font-face {
@@ -326,14 +328,16 @@ footer {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 600px;
-    width: 600px;
+    height: 95%;
+    width: 40%;
     justify-content: center;
     z-index: 1020;
     border-radius: 10px;
 }
 
 .modal-img {
+    width: 70%;
+    /* height: 70%; */
     position: fixed;
     top: 55%;
     left: 50%;
