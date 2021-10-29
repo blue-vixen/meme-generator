@@ -8,11 +8,10 @@ function onInit() {
     gCtx = gElCanvas.getContext('2d')
     gCtx.fillStyle = 'white'
     gCtx.fillRect(0, 0, gElCanvas.width, gElCanvas.height)
-    gMeme.lines[0].pos = { x: (gElCanvas.width / 2), y: 50 }
     renderCanvas()
     renderGallery();
     // addListeners()
-    // renderSavedMemes();
+    renderSavedMemes();
 }
 
 
@@ -20,7 +19,6 @@ function renderCanvas() {
     if (!gCurrImg) {
         gCtx.fillStyle = "#ede5ff"
         gCtx.fillRect(0, 0, gElCanvas.width, gElCanvas.height)
-        drawText();
     } else renderImage(gCurrImg)
     // gCtx.save()
     // gCtx.restore()
@@ -153,19 +151,52 @@ function givePos(ev) {
     console.log(pos)
 }
 
-
-function showGallery() {
-    document.querySelector('.gallery').classList.remove('hide');
-    document.querySelector('.editor').classList.add('hide');
-    document.querySelector('.gallery-btn').classList.add('current-page');
+function showArea(clickedEl, area) {
+    const elBtns = document.querySelectorAll('.nav-btn');
+    console.log(elBtns);
+    elBtns.forEach(btn => {
+        btn.classList.remove('current-page');
+    });
+    console.log(elBtns);
+    clickedEl.classList.add('current-page');
+    const elAreas = document.querySelectorAll('.area');
+    elAreas.forEach(area => {
+        area.classList.add('hide');
+    });
+    document.querySelector(`.${area}`).classList.remove('hide');
     document.body.classList.remove('menu-open');
 }
+
+
+// function showGallery(el, area) {
+//     console.log(area)
+//     console.log(el)
+//     el.style.color = 'blue'
+//     var areas = document.querySelectorAll('.area');
+//     // console.log(areas)
+//     areas.forEach(area => {
+//         area.classList.add('hide');
+//     });
+//     document.querySelector('.gallery').classList.remove('hide');
+//     document.querySelector('.gallery-btn').classList.add('current-page');
+//     document.querySelector('.memes-btn').classList.remove('current-page');
+
+// }
 
 function showEditor() {
     document.querySelector('.gallery').classList.toggle('hide');
     document.querySelector('.editor').classList.toggle('hide');
     document.querySelector('.gallery-btn').classList.toggle('current-page');
 }
+
+// function showSavedMemes() {
+//     document.querySelector('.gallery').classList.add('hide');
+//     document.querySelector('.editor').classList.add('hide');
+//     document.querySelector('.gallery-btn').classList.remove('current-page');
+//     document.querySelector('.memes-btn').classList.add('current-page');
+//     document.querySelector('.saved-memes').classList.remove('hide');
+//     document.body.classList.remove('menu-open');
+// }
 
 function toggleMenu() {
     document.body.classList.toggle('menu-open');
@@ -179,23 +210,63 @@ function downloadCanvas(elLink) {
     elLink.href = data;
 }
 
-// function onSaveMeme() {
-//     const data = gElCanvas.toDataURL();
-//     saveMeme(data);
+function downloadSavedMeme(elLink) {
+    const imageURI = document.querySelector('.modal-img').src;
+    console.log(imageURI);
+    elLink.href = imageURI;
+}
+
+function onChangeColor(color, colorPath) {
+    if (colorPath === 'fill') setFillColor(color)
+    else setStrokeColor(color);
+    renderCanvas();
+}
+
+function onSaveMeme() {
+    const data = gElCanvas.toDataURL();
+    saveMeme(data);
+}
+
+
+// function onChangeFont(font) {
+//     console.log(font);
+//     switch (font) {
+//         case 'Arial':
+//             setFont('Arial');
+//             break;
+//         case 'ArialB':
+//             setFont('Arial Black');
+//             break;
+//     }
+
+//     renderCanvas();
 // }
 
 
-// function renderSavedMemes() {
-//     var memes = getSavedMemes();
-//     var strHtml = memes.map((meme) => {
-//         const { data, id } = meme;
-//         // console.log(data);
-//         return `<img src="${data}" class="saved-meme" onclick="restoreSavedMeme(${id})">`
-//     })
 
-//     console.log(strHtml);
-//     document.querySelector('.saved-memes-container').innerHTML = strHtml.join('');
-// }
+function renderSavedMemes() {
+    var idx = -1;
+    var memes = getSavedMemes();
+    var strHtml = memes.map((meme) => {
+        idx++
+        return `<img src="${meme}" class="saved-meme" onclick="openModal(${idx})">`
+    })
+
+    console.log(strHtml);
+    document.querySelector('.saved-memes-container').innerHTML = strHtml.join('');
+}
+
+function openModal(idx) {
+    var imageData = getSavedMeme(idx);
+    document.querySelector('.modal-img').src = imageData;
+    document.querySelector('.modal').classList.remove('hide');
+    document.querySelector('.modal-overlay').classList.remove('hide');
+}
+
+function closeModal() {
+    document.querySelector('.modal').classList.add('hide');
+    document.querySelector('.modal-overlay').classList.add('hide');
+}
 
 // window.addEventListener('resize', () => {
 //     console.log('resized')
