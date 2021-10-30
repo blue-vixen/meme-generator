@@ -57,8 +57,8 @@
                 </ul>
                 <ul class="output-operations clean-list">
                     <li><a href="#" class="save-meme btn" onclick="onSaveMeme()">Save</a></li>
-                    <li><a href="#" class="download-meme btn" onclick="downloadCanvas(this)"
-                            download="my-meme">Download</a></li>
+                    <li><a href="#" class="download-meme btn" onmousedown="renderCleanImage()"
+                            onmouseup="downloadCanvas(this)" download="my-meme">Download</a></li>
                     <li><a href="#" class="share btn">Share</a></li>
                 </ul>
             </section>
@@ -74,10 +74,18 @@
                 <option value="Cat"></option>
                 <option value="Politics"></option>
             </datalist>
+            <div class="upload-operations hide">
+                <button class="upload-btn" onclick="uploadImg()">Upload Chosen Photo</button>
+                <span id="file-chosen"></span>
+            </div>
+            <section class="gallery-container">
+                <label for="file-input" class="input-label" title="Choose photo"><i class="fa fa-plus"></i></label>
+                <input type="file" class="file-input btn" name="image" id="file-input" onchange="onImgInput(event)"
+                    hidden />
+            </section>
 
-            <section class="gallery-container"></section>
         </section>
-        <section class="saved-memes area hide" onload="renderSavedMemes()">
+        <section class="saved-memes area hide">
             <section class="saved-memes-container"></section>
         </section>
         <section class="about area hide">
@@ -88,6 +96,7 @@
         <section class="modal hide">
             <button class="modal-close" onclick="closeModal()">X</button>
             <ul class="modal-operations clean-list">
+                <li><a href="#" class="remove-meme btn" onclick="onRemoveMeme()">Remove</a></li>
                 <li><a href="#" class="download-meme btn" onclick="downloadSavedMeme(this)"
                         download="my-meme">Download</a>
                 </li>
@@ -104,6 +113,7 @@
 
 
     <script src="https://kit.fontawesome.com/6a4b98cb80.js" crossorigin="anonymous"></script>
+    <script src="js/uploadService.js"></script>
     <script src="js/mainService.js"></script>
     <script src="js/storageService.js"></script>
     <script src="js/memeService.js"></script>

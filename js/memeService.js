@@ -109,6 +109,11 @@ function getSavedMemes() {
     return memes;
 }
 
+function removeSavedMeme(idx) {
+    gMemes.splice(idx, 1);
+    saveToStorage('memesDB', gMemes);
+}
+
 function setFilter(filterBy) {
     gFilterBy = filterBy.toLowerCase();
     console.log('filtering by', filterBy.toLowerCase())
