@@ -9,7 +9,7 @@ function onInit() {
     gCtx = gElCanvas.getContext('2d')
     gCtx.fillStyle = 'white'
     gCtx.fillRect(0, 0, gElCanvas.width, gElCanvas.height)
-    renderCanvas()
+    renderCanvas();
     renderGallery();
     // addListeners();
     renderSavedMemes();
@@ -21,8 +21,8 @@ function renderCanvas() {
         gCtx.fillStyle = "#ede5ff"
         gCtx.fillRect(0, 0, gElCanvas.width, gElCanvas.height)
     } else renderImage(gCurrImg)
-    // gCtx.save()
-    // gCtx.restore()
+    gCtx.save()
+    gCtx.restore()
     renderSelectionRect();
     drawText();
 }
@@ -97,7 +97,7 @@ function renderGallery() {
         strHtml = images.map(image => {
             return `<img src="${image.url}" onclick="updateCanvas(${image.id})">`
         })
-        document.querySelector('.gallery-container').innerHTML += strHtml.join('');
+        document.querySelector('.gallery-container').innerHTML = strHtml.join('');
     }
 
 }
@@ -305,28 +305,28 @@ function onRemoveMeme() {
 
 // Uploading image from file system
 
-function onImgInput(ev) {
-    console.log(ev)
-    document.querySelector('.upload-operations').classList.remove('hide');
-    const fileChosen = document.getElementById('file-chosen');
-    fileChosen.textContent = `File chosen: ${ev.target.files[0].name}`
-    loadImageFromInput(ev, renderImg)
-}
+// function onImgInput(ev) {
+//     console.log(ev)
+//     document.querySelector('.upload-operations').classList.remove('hide');
+//     const fileChosen = document.getElementById('file-chosen');
+//     fileChosen.textContent = `File chosen: ${ev.target.files[0].name}`
+//     loadImageFromInput(ev, renderImg)
+// }
 
-function loadImageFromInput(ev, onImageReady) {
-    var reader = new FileReader()
-    reader.onload = function (event) {
-        var img = new Image()
-        img.onload = onImageReady.bind(null, img)
-        img.src = event.target.result
-        gImg = img
-    }
-    reader.readAsDataURL(ev.target.files[0])
-}
+// function loadImageFromInput(ev, onImageReady) {
+//     var reader = new FileReader()
+//     reader.onload = function (event) {
+//         var img = new Image()
+//         img.onload = onImageReady.bind(null, img)
+//         img.src = event.target.result
+//         gImg = img
+//     }
+//     reader.readAsDataURL(ev.target.files[0])
+// }
 
-function renderImg(img) {
-    gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height);
-}
+// function renderImg(img) {
+//     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height);
+// }
 
 
 // Upload button 
