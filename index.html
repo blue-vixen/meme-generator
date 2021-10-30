@@ -64,9 +64,20 @@
             </section>
         </section>
         <section class="gallery area">
+            <input list="keywords" name="keyword" id="keyword" oninput="onSetFilter(this.value)" placeholder="Search">
+            <datalist id="keywords">
+                <option value="Happy"></option>
+                <option value="Cute"></option>
+                <option value="Angry"></option>
+                <option value="Baby"></option>
+                <option value="Dog"></option>
+                <option value="Cat"></option>
+                <option value="Politics"></option>
+            </datalist>
+
             <section class="gallery-container"></section>
         </section>
-        <section class="saved-memes area hide">
+        <section class="saved-memes area hide" onload="renderSavedMemes()">
             <section class="saved-memes-container"></section>
         </section>
         <section class="about area hide">

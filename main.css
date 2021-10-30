@@ -104,6 +104,16 @@ footer {
     margin:10px;
 }
 
+#keyword {
+    margin: 10px;
+    width: 50%;
+    font-family: Roboto, sans-serif;
+    font-size: 20px;
+    padding: 5px;
+    border-radius: 0.5em;
+    border: 1px solid #989898;
+}
+
 
 .gallery-container img, .saved-memes-container img {
     width: 170px;
@@ -219,6 +229,11 @@ footer {
 
 }
 
+/* #keyword {
+    margin: 10px;
+    width: 100%;
+} */
+
 .btn-menu.burger::before {
     content: '\2630';
 }
@@ -299,6 +314,10 @@ footer {
         grid-gap: 25px;
         grid-auto-flow: dense;
         margin:25px;
+    }
+
+    #keyword {
+        margin: 25px;
     }
 
 

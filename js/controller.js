@@ -10,7 +10,7 @@ function onInit() {
     gCtx.fillRect(0, 0, gElCanvas.width, gElCanvas.height)
     renderCanvas()
     renderGallery();
-    // addListeners()
+    // addListeners();
     renderSavedMemes();
 }
 
@@ -89,12 +89,24 @@ function onUpdateText(text) {
 
 function renderGallery() {
     var images = getImages();
-    var strHtml
-    strHtml = images.map(image => {
-        return `<img src="${image.url}" onclick="updateCanvas(${image.id})">`
-    })
-    document.querySelector('.gallery-container').innerHTML = strHtml.join('');
+    if (images.length === 0) {
+        document.querySelector('.gallery-container').innerHTML = `<h2 class="filter">No matches found...</h2>`;
+    } else {
+        var strHtml
+        strHtml = images.map(image => {
+            return `<img src="${image.url}" onclick="updateCanvas(${image.id})">`
+        })
+        document.querySelector('.gallery-container').innerHTML = strHtml.join('');
+    }
+
 }
+
+function onSetFilter(filterBy) {
+    console.log('filtering by', filterBy)
+    setFilter(filterBy);
+    renderGallery();
+}
+
 
 function updateCanvas(imgId) {
     var img = getImageById(imgId);
@@ -153,11 +165,11 @@ function givePos(ev) {
 
 function showArea(clickedEl, area) {
     const elBtns = document.querySelectorAll('.nav-btn');
-    console.log(elBtns);
+    // console.log(elBtns);
     elBtns.forEach(btn => {
         btn.classList.remove('current-page');
     });
-    console.log(elBtns);
+    // console.log(elBtns);
     clickedEl.classList.add('current-page');
     const elAreas = document.querySelectorAll('.area');
     elAreas.forEach(area => {
@@ -244,7 +256,7 @@ function renderSavedMemes() {
         return `<img src="${meme}" class="saved-meme" onclick="openModal(${idx})">`
     })
 
-    console.log(strHtml);
+    // console.log(strHtml);
     document.querySelector('.saved-memes-container').innerHTML = strHtml.join('');
 }
 
@@ -259,18 +271,6 @@ function closeModal() {
     document.querySelector('.modal').classList.add('hide');
     document.querySelector('.modal-overlay').classList.add('hide');
 }
-
-// window.addEventListener('resize', () => {
-//     console.log('resized')
-//     resizeCanvas();
-//     renderCanvas();
-// });
-
-// function resizeCanvas() {
-//     var elContainer = document.querySelector('.canvas-container');
-//     gElCanvas.width = elContainer.offsetWidth - 20;
-//     gCanvas.height = elContainer.offsetHeight - 20
-// }
 
 /* Drag and Drop - currently disabled */
 
