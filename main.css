@@ -52,6 +52,8 @@ footer {
     flex-direction: column;
 }
 
+/* components */
+
 .editor {
     display: flex;
     justify-content: center;    
@@ -104,14 +106,15 @@ footer {
     margin:10px;
 }
 
-#keyword {
+#keywords {
     margin: 10px;
-    width: 50%;
+    width: 100%;
     font-family: Roboto, sans-serif;
-    font-size: 20px;
-    padding: 5px;
-    border-radius: 0.5em;
-    border: 1px solid #989898;
+    font-size: 1em;
+    padding: 0.75em;
+    border-radius: 5.0em;
+    border: 1px solid #EBEBEB;
+    line-height: 1.171;
 }
 
 
@@ -251,11 +254,6 @@ footer {
 
 }
 
-/* #keyword {
-    margin: 10px;
-    width: 100%;
-} */
-
 .btn-menu.burger::before {
     content: '\2630';
 }
@@ -370,10 +368,9 @@ footer {
 
 @media (min-width: 1080px){
     .gallery-container, .saved-memes-container {
-        grid-template-columns: repeat(5, 210px);
+        grid-template-columns: repeat(6, 210px);
         grid-auto-rows: minmax(210px, 1fr);
     }
-
 
 }
 

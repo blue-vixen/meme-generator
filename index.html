@@ -52,19 +52,20 @@
                             <option value="ComicS">Comics Sans MS</option>
                             <option value="Helvetica">Helvetica</option>
                         </select></li> -->
-                    <li><input type="color" oninput="onChangeColor(value, 'fill')" title="Fill Color"></li>
+                    <li><input type="color" oninput="onChangeColor(value, 'color')" title="Fill Color"></li>
                     <li><input type="color" oninput="onChangeColor(value, 'stroke')" title="Stroke Color"></li>
                 </ul>
                 <ul class="output-operations clean-list">
                     <li><a href="#" class="save-meme btn" onclick="onSaveMeme()">Save</a></li>
-                    <li><a href="#" class="download-meme btn" onmousedown="renderCleanImage()"
-                            onmouseup="downloadCanvas(this)" download="my-meme">Download</a></li>
+                    <li><a href="#" class="download-meme btn" onmousedown="clearSelectionRect()"
+                            onclick="downloadCanvas(this)">Download</a>
+                    </li>
                     <li><a href="#" class="share btn">Share</a></li>
                 </ul>
             </section>
         </section>
         <section class="gallery area">
-            <input list="keywords" name="keyword" id="keyword" oninput="onSetFilter(this.value)" placeholder="Search">
+            <input type="search" name="keywords" id="keywords" oninput="onSetFilter(this.value)" placeholder="Search">
             <datalist id="keywords">
                 <option value="Happy"></option>
                 <option value="Cute"></option>
@@ -118,11 +119,12 @@
 
 
     <script src="https://kit.fontawesome.com/6a4b98cb80.js" crossorigin="anonymous"></script>
-    <script src="js/uploadService.js"></script>
-    <script src="js/mainService.js"></script>
-    <script src="js/storageService.js"></script>
-    <script src="js/memeService.js"></script>
-    <script src="js/controller.js"></script>
+    <script src="js/upload.service.js"></script>
+    <script src="js/main.service.js"></script>
+    <script src="js/storage.service.js"></script>
+    <script src="js/meme.service.js"></script>
+    <script src="js/main-controller.js"></script>
+    <script src="js/saved-memes.controller.js"></script>
 </body>
 
 </html>

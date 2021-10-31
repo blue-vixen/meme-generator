@@ -2,13 +2,13 @@
 
 // const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
 var gImg;
+var gPrevSelectedLineIdx;
 
 function onInit() {
-    console.log('lets meme!')
+    gPrevSelectedLineIdx = 0;
+    console.log('lets meme!', gMeme.selectedLineIdx)
     gElCanvas = document.getElementById('my-canvas')
     gCtx = gElCanvas.getContext('2d')
-    gCtx.fillStyle = 'white'
-    gCtx.fillRect(0, 0, gElCanvas.width, gElCanvas.height)
     renderCanvas();
     renderGallery();
     // addListeners();
@@ -21,25 +21,27 @@ function renderCanvas() {
         gCtx.fillStyle = "#ede5ff"
         gCtx.fillRect(0, 0, gElCanvas.width, gElCanvas.height)
     } else renderImage(gCurrImg)
-    gCtx.save()
-    gCtx.restore()
-    renderSelectionRect();
-    drawText();
+    // gCtx.save()
+    // gCtx.restore()
+    // renderSelectionRect();
+    // drawText();
 }
 
 
-function renderImage(url) {
+function renderImage(url, isDownload) {
     var img = new Image()
     img.src = url;
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
         drawText();
-        renderSelectionRect();
+        if (gMeme.selectedLineIdx !== -1) renderSelectionRect();
+        if (isDownload) gMeme.selectedLineIdx = gPrevSelectedLineIdx
     }
 }
 
 function drawText() {
     var lines = getLines();
+    if (lines.length === 0) return;
     lines.forEach((line) => {
         let { txt, size, align, color, stroke, font, pos } = line;
         if (txt === '') txt = (document.getElementById("line-txt").getAttribute('placeholder'));
@@ -57,15 +59,17 @@ function drawText() {
     })
 }
 
+function clearSelectionRect() {
+    gPrevSelectedLineIdx = gMeme.selectedLineIdx
+    gMeme.selectedLineIdx = -1
+    renderImage(gCurrImg, true)
+}
+
 
 function renderSelectionRect() {
     var line = getCurrLine();
-    // console.log(line);
+    if (!line) return
     const { pos, width, height } = line;
-    // console.log(pos)
-    // var textWidth = gCtx.measureText(txt).width;
-    // var textHeight = (gCtx.measureText(txt).fontBoundingBoxDescent) + (gCtx.measureText(txt).fontBoundingBoxAscent)
-    // console.log(width, height);
     drawRect(pos.x - width / 2 - 25, pos.y - height, width + 50, height + 20);
 
 }
@@ -74,18 +78,17 @@ function drawRect(x, y, width, height) {
     gCtx.beginPath();
     gCtx.rect(x, y, width, height);
     gCtx.setLineDash([10, 10]);
-    // gCtx.fillStyle = 'transparent';
-    // gCtx.fillRect(x, y, 150, 150);
     gCtx.strokeStyle = 'black';
     gCtx.stroke();
 }
 
 
 function onUpdateText(text) {
-    console.log(text)
+    if (gMeme.selectedLineIdx === -1) gMeme.selectedLineIdx = gPrevSelectedLineIdx
+    // console.log(text)
     updateText(text);
     renderCanvas();
-    drawText();
+    // drawText();
 }
 
 function renderGallery() {
@@ -111,9 +114,15 @@ function onSetFilter(filterBy) {
 
 function updateCanvas(imgId) {
     var img = getImageById(imgId);
-    renderImage(img.url)
+    gCurrImg = img.url;
+    renderImage(gCurrImg)
     showEditor();
 }
+
+function clearCanvas() {
+    gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height);
+}
+
 
 function onIncreaseFont() {
     increaseFont();
@@ -126,22 +135,15 @@ function onDecreaseFont() {
 }
 
 
-function onMoveDown() {
-    moveLineDown();
+function onMove(dir) {
+    moveLine(dir);
     renderCanvas();
-
-}
-
-function onMove(direction) {
-    if (direction === 'up') moveLineUp()
-    else moveLineDown()
-    renderCanvas()
 }
 
 function onAddLine() {
-    addLine()
+    addLine();
     document.querySelector('#line-txt').value = '';
-    renderCanvas()
+    renderCanvas();
 }
 
 function onSwitch() {
@@ -150,19 +152,36 @@ function onSwitch() {
     renderCanvas();
 }
 
+function onChangeColor(color, path) {
+    changeColor(color, path)
+    renderCanvas();
+}
+
 function onRemoveLine() {
     removeLine();
     renderCanvas();
 }
 
+// function onChangeFont(font) {
+//     console.log(font);
+//     switch (font) {
+//         case 'Arial':
+//             setFont('Arial');
+//             break;
+//         case 'ArialB':
+//             setFont('Arial Black');
+//             break;
+//     }
 
-function givePos(ev) {
-    var pos = {
-        x: ev.offsetX,
-        y: ev.offsetY
-    }
-    console.log(pos)
+//     renderCanvas();
+// }
+
+function downloadCanvas(elLink) {
+    const data = gElCanvas.toDataURL('image/jpeg');
+    elLink.href = data;
+    elLink.download = 'img';
 }
+
 
 function showArea(clickedEl, area) {
     const elBtns = document.querySelectorAll('.nav-btn');
@@ -186,6 +205,7 @@ function showGallery() {
     document.querySelector('.editor').classList.add('hide');
     document.querySelector('.gallery-btn').classList.add('current-page');
     document.querySelector('.memes-btn').classList.remove('current-page');
+    clearCanvas();
 }
 
 function showEditor() {
@@ -194,112 +214,22 @@ function showEditor() {
     document.querySelector('.gallery-btn').classList.toggle('current-page');
 }
 
-// function showSavedMemes() {
-//     document.querySelector('.gallery').classList.add('hide');
-//     document.querySelector('.editor').classList.add('hide');
-//     document.querySelector('.gallery-btn').classList.remove('current-page');
-//     document.querySelector('.memes-btn').classList.add('current-page');
-//     document.querySelector('.saved-memes').classList.remove('hide');
-//     document.body.classList.remove('menu-open');
-// }
-
 function toggleMenu() {
     document.body.classList.toggle('menu-open');
     document.querySelector('.btn-menu').classList.toggle('burger');
 }
 
-function renderCleanImage() {
-    var img = new Image()
-    img.src = gCurrImg;
-    img.onload = () => {
-        gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
-        drawText();
-    }
-}
-
-function downloadCanvas(elLink) {
-    const data = gElCanvas.toDataURL();
-    elLink.href = data;
-}
 
 
-function downloadSavedMeme(elLink) {
-    const imageURI = document.querySelector('.modal-img').src;
-    console.log(imageURI);
-    elLink.href = imageURI;
-}
-
-function onChangeColor(color, colorPath) {
-    if (colorPath === 'fill') setFillColor(color)
-    else setStrokeColor(color);
-    renderCanvas();
-}
-
-function onSaveMeme() {
-    var img = new Image()
-    img.src = gCurrImg;
-    img.onload = () => {
-        gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
-        drawText();
-        const data = gElCanvas.toDataURL();
-        saveMeme(data);
-        renderSavedMemes();
-    }
-}
 
 
-// function onChangeFont(font) {
-//     console.log(font);
-//     switch (font) {
-//         case 'Arial':
-//             setFont('Arial');
-//             break;
-//         case 'ArialB':
-//             setFont('Arial Black');
-//             break;
+// function givePos(ev) {
+//     var pos = {
+//         x: ev.offsetX,
+//         y: ev.offsetY
 //     }
-
-//     renderCanvas();
+//     console.log(pos)
 // }
-
-
-
-function renderSavedMemes() {
-    var idx = -1;
-    var memes = getSavedMemes();
-    if (memes.length === 0) {
-        document.querySelector('.saved-memes-container').innerHTML = `<h2>No saved memes</h2>`
-    } else {
-        var strHtml = memes.map((meme) => {
-            idx++
-            return `<img src="${meme}" class="saved-meme" onclick="openModal(${idx})">`
-        })
-
-        // console.log(strHtml);
-        document.querySelector('.saved-memes-container').innerHTML = strHtml.join('');
-    }
-
-}
-
-function openModal(idx) {
-    var imageData = getSavedMeme(idx);
-    document.querySelector('.modal-img').setAttribute('data-idx', idx);
-    document.querySelector('.modal-img').src = imageData;
-    document.querySelector('.modal').classList.remove('hide');
-    document.querySelector('.modal-overlay').classList.remove('hide');
-}
-
-function closeModal() {
-    document.querySelector('.modal').classList.add('hide');
-    document.querySelector('.modal-overlay').classList.add('hide');
-}
-
-function onRemoveMeme() {
-    var idx = document.querySelector('.modal-img').getAttribute('data-idx');
-    removeSavedMeme(idx);
-    renderSavedMemes();
-    closeModal();
-}
 
 
 
