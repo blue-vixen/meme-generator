@@ -1,7 +1,7 @@
 function renderSavedMemes() {
     var idx = -1;
     var memes = getSavedMemes();
-    if (memes.length === 0) {
+    if (!memes || memes.length === 0) {
         document.querySelector('.saved-memes-container').innerHTML = `<h2>No saved memes</h2>`
     } else {
         var strHtml = memes.map((meme) => {

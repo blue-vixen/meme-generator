@@ -217,6 +217,7 @@ function getSavedMeme(idx) {
 
 function saveMeme(data) {
     console.log('saving...');
+    console.log(gMemes)
     // var currMeme = {
     //     selectedImgId: gMeme.selectedImgId,
     //     selectedLineIdx: gMeme.selectedLineIdx,
@@ -224,7 +225,8 @@ function saveMeme(data) {
     // }
     // currMeme[id] = gMemes.length + 1;
     // console.log(currMeme.lines[0].txt);
-    gMemes.push(data);
+    if (!gMemes || gMemes.length === 0) gMemes = [data]
+    else gMemes.push(data);
     console.log(gMemes);
     saveToStorage('memesDB', gMemes);
 }

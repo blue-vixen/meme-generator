@@ -1,3 +1,4 @@
+'use strict'
 
 function uploadImg() {
     const imgDataUrl = gElCanvas.toDataURL("image/jpeg");
