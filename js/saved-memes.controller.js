@@ -36,7 +36,8 @@ function onRemoveMeme() {
 }
 
 
-function onSaveMeme() {
+function onSaveMeme(btn) {
+    // console.log(btn.style);
     var img = new Image()
     img.src = gCurrImg;
     img.onload = () => {
@@ -45,6 +46,13 @@ function onSaveMeme() {
         const data = gElCanvas.toDataURL();
         saveMeme(data);
         renderSavedMemes();
+        btn.innerText = 'Meme Saved!'
+        btn.style.backgroundColor = '#989898'
+        setTimeout(() => {
+            btn.innerText = 'Save'
+            btn.style.backgroundColor = '#FF9826'
+        }, 3000);
+
     }
 }
 

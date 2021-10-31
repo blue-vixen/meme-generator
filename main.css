@@ -11,7 +11,8 @@ body {
 
 nav {    
     box-shadow: 0px 1px 0px 0px #DBDBDB;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
+    justify-content: center;
 
 }
 
@@ -72,7 +73,7 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 25px;
+    
     
 }
 
@@ -103,11 +104,11 @@ footer {
     grid-auto-rows: minmax(170px, 1fr);
     grid-gap: 15px;
     grid-auto-flow: dense;
-    margin:10px;
+ 
 }
 
-#keywords {
-    margin: 10px;
+#keyword {
+    margin-bottom: 30px;
     width: 100%;
     font-family: Roboto, sans-serif;
     font-size: 1em;
@@ -190,11 +191,19 @@ footer {
     height: 30px;
 }
 
-.font-operations .btn {
+.font-operations .btn:not(select) {
     font-family: fa;
     font-size: 15px;
     width: 30px;
     height: 30px;
+}
+
+.font-operations select {
+    height: 30px;
+}
+
+.fill-btn {
+    background-color: #fff;
 }
 
 
@@ -292,6 +301,9 @@ footer {
         margin: 0 auto;
     }
 
+    .nav-container {
+        width: 100%;
+    }
     .nav-bar {
         position: fixed;
         top: 0;
@@ -322,30 +334,48 @@ footer {
     }
 }
 
-
-
 @media (min-width: 840px) {
     .btn-menu {
         display: none;
+    }
+
+    .gallery-container, .saved-memes-container {
+        display: grid;
+        grid-template-columns: repeat(4, 170px);
+        grid-auto-rows: minmax(170px, 1fr);
+        grid-gap: 10px;
+        grid-auto-flow: dense;
+       
+    }
+
+    .nav-container {
+        width: 710px;
     }
 
     .nav-bar > *:not(:last-child) {
         margin-inline-end: 50px;
     }
 
+    .gallery-container img:hover, .saved-memes-container img:hover {
+        cursor: pointer;
+        box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    }
+
+}
+
+@media (min-width: 960px) {
+    .nav-container {
+        width: 915px;
+    }
+
+
     .gallery-container, .saved-memes-container {
-        display: grid;
         grid-template-columns: repeat(4, 210px);
         grid-auto-rows: minmax(210px, 1fr);
         grid-gap: 25px;
-        grid-auto-flow: dense;
-        margin:25px;
+       
     }
 
-    #keyword {
-        margin: 25px;
-        padding: 10px;
-    }
 
     .input-label {
         width: 210px;
@@ -358,18 +388,29 @@ footer {
         height: 210px;
         object-fit: cover;
         border-radius: 10px;
-       }
-       
-    .gallery-container img:hover, .saved-memes-container img:hover {
-        cursor: pointer;
-        box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
     }
+       
+
 }
 
-@media (min-width: 1080px){
+@media (min-width: 1200px){
+    .gallery-container, .saved-memes-container {
+        grid-template-columns: repeat(5, 210px);
+        grid-auto-rows: minmax(210px, 1fr);
+    }
+    .nav-container {
+        width: 1150px;
+    }
+
+}
+@media (min-width: 1440px){
     .gallery-container, .saved-memes-container {
         grid-template-columns: repeat(6, 210px);
         grid-auto-rows: minmax(210px, 1fr);
+    }
+
+    .nav-container {
+        width: 1385px;
     }
 
 }

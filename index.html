@@ -11,7 +11,7 @@
 </head>
 
 <body onload="onInit()">
-    <nav>
+    <nav class="flex">
         <div class="nav-container">
             <div class="logo"><img src="logo.png" alt="MEMEGEN LOGO"></div>
             <ul class="clean-list nav-bar">
@@ -45,18 +45,19 @@
                 <ul class="font-operations clean-list flex space-between">
                     <li><button class="increase-font btn" onclick="onIncreaseFont()" title="Enlarge Font"></button></li>
                     <li><button class="decrease-font btn" onclick="onDecreaseFont()" title="Reduce Font"></button></li>
-                    <!-- <li><select name="fonts" id="font-select" oninput="onChangeFont(value)">
-                            <option value="impact">Impact</option>
+                    <li><select class="btn" name="fonts" id="font-select" oninput="onChangeFont(value)">
+                            <option value="Impact">Impact</option>
                             <option value="Arial">Arial</option>
                             <option value="ArialB">Arial Black</option>
-                            <option value="ComicS">Comics Sans MS</option>
-                            <option value="Helvetica">Helvetica</option>
-                        </select></li> -->
-                    <li><input type="color" oninput="onChangeColor(value, 'color')" title="Fill Color"></li>
-                    <li><input type="color" oninput="onChangeColor(value, 'stroke')" title="Stroke Color"></li>
+                        </select></li>
+                    <li><input class="fill-btn btn" value="#FFFFFF" type="color" oninput="onChangeColor(value, 'color')"
+                            title="Fill Color"></li>
+                    <li><input class="stroke-btn btn" type="color" oninput="onChangeColor(value, 'stroke')"
+                            title="Stroke Color">
+                    </li>
                 </ul>
                 <ul class="output-operations clean-list">
-                    <li><a href="#" class="save-meme btn" onclick="onSaveMeme()">Save</a></li>
+                    <li><a href="#" class="save-meme btn" onclick="onSaveMeme(this)">Save</a></li>
                     <li><a href="#" class="download-meme btn" onmousedown="clearSelectionRect()"
                             onclick="downloadCanvas(this)">Download</a>
                     </li>
@@ -65,16 +66,9 @@
             </section>
         </section>
         <section class="gallery area">
-            <input type="search" name="keywords" id="keywords" oninput="onSetFilter(this.value)" placeholder="Search">
-            <datalist id="keywords">
-                <option value="Happy"></option>
-                <option value="Cute"></option>
-                <option value="Angry"></option>
-                <option value="Baby"></option>
-                <option value="Dog"></option>
-                <option value="Cat"></option>
-                <option value="Politics"></option>
-            </datalist>
+            <input type="search" list="keywords" name="keyword" id="keyword" oninput="onSetFilter(this.value)"
+                placeholder="Search">
+            <datalist id="keywords"></datalist>
             <!-- <div class="upload-operations hide">
                 <button class="upload-btn" onclick="uploadImg()">Upload Chosen Photo</button>
                 <span id="file-chosen"></span>
@@ -119,13 +113,13 @@
 
 
     <script src="https://kit.fontawesome.com/6a4b98cb80.js" crossorigin="anonymous"></script>
-    <script src="js/drag-and-drop.controller.js"></script>
-    <script src="js/saved-memes.controller.js"></script>
-    <script src="js/upload.service.js"></script>
-    <script src="js/main.service.js"></script>
-    <script src="js/storage.service.js"></script>
-    <script src="js/meme.service.js"></script>
+    <script src="js/services/editor.service.js"></script>
+    <script src="js/services/gallery.service.js"></script>
+    <script src="js/services/storage.service.js"></script>
+    <script src="js/services/upload.service.js"></script>
     <script src="js/main-controller.js"></script>
+    <script src="js/saved-memes.controller.js"></script>
+    <script src="js/drag-and-drop.controller.js"></script>
 </body>
 
 </html>

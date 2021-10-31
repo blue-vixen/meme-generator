@@ -2,74 +2,7 @@
 
 var gElCanvas
 var gCtx
-var gCurrImg = ''
-var gStartPos
-var gFilterBy = 'ALL'
 
-var gImgs = [
-    {
-        id: 1,
-        url: 'img/1.jpg',
-        keywords: ['trump', 'angry', 'politics']
-    },
-    {
-        id: 2,
-        url: 'img/2.jpg',
-        keywords: ['dog', 'puppy', 'cute', 'love', 'kiss', 'animal']
-    },
-    {
-        id: 3,
-        url: 'img/3.jpg',
-        keywords: ['dog', 'baby', 'cute', 'sleep', 'animal']
-    },
-    {
-        id: 4,
-        url: 'img/4.jpg',
-        keywords: ['cat', 'keyboard', 'tired', 'cute', 'animal']
-    },
-    {
-        id: 5,
-        url: 'img/5.jpg',
-        keywords: ['baby', 'success', 'happy', 'cute']
-    },
-    {
-        id: 6,
-        url: 'img/6.jpg',
-        keywords: ['man', 'aliens', 'blame']
-    },
-    {
-        id: 7,
-        url: 'img/7.jpg',
-        keywords: ['baby', 'surprise']
-    },
-    {
-        id: 8,
-        url: 'img/8.jpg',
-        keywords: ['charlie and the chocolate factory', 'tell me again', 'wonka', 'condescending', 'gene wilder']
-    },
-    {
-        id: 9,
-        url: 'img/9.jpg',
-        keywords: ['baby', 'laughing', 'evil', 'happy']
-    },
-    {
-        id: 10,
-        url: 'img/10.jpg',
-        keywords: ['obama', 'laughing', 'happy']
-    },
-    {
-        id: 15,
-        url: 'img/15.jpg',
-        keywords: ['lord of the rings', 'one does not simply', 'boromir']
-    },
-    {
-        id: 18,
-        url: 'img/18.jpg',
-        keywords: ['everywhere', 'buzz', 'toy story']
-    },
-]
-
-var gMemes = []
 
 var gMeme = {
     selectedImgId: 1,
@@ -82,7 +15,7 @@ var gMeme = {
             color: 'white',
             stroke: 'black',
             font: 'Impact',
-            pos: { x: 250, y: 50 },
+            pos: { x: 250, y: 60 },
             isDrag: false,
 
         }
@@ -94,29 +27,9 @@ function getLines() {
     return gMeme.lines;
 }
 
+
 function getCurrLine() {
     return gMeme.lines[gMeme.selectedLineIdx];
-}
-
-function setFilter(filterBy) {
-    console.log(filterBy)
-    if (!filterBy) gFilterBy = 'ALL'
-    else gFilterBy = filterBy.toLowerCase();
-    console.log('filtering by', gFilterBy.toLowerCase())
-}
-
-function getImages() {
-    if (gFilterBy === 'ALL') return gImgs;
-    // console.log(gFilterBy);
-    return gImgs.filter(img => img.keywords.some(keyword => keyword.startsWith(gFilterBy)));
-
-}
-
-
-function getImageById(imgId) {
-    var currImage = gImgs.find(image => image.id === imgId);
-    gCurrImg = currImage.url;
-    return currImage;
 }
 
 
@@ -128,13 +41,16 @@ function updateText(text) {
 }
 
 function increaseFont() {
-    if (gMeme.lines[gMeme.selectedLineIdx].size === 70) return
-    gMeme.lines[gMeme.selectedLineIdx].size += 10;
+    const line = getCurrLine()
+    if (line.size === 50) return
+    line.size += 10;
+    // console.log(line.size)
 }
 
 function decreaseFont() {
-    if (gMeme.lines[gMeme.selectedLineIdx].size === 20) return
-    gMeme.lines[gMeme.selectedLineIdx].size -= 10;
+    const line = getCurrLine()
+    if (line.size === 30) return
+    line.size -= 10;
 
 }
 
@@ -145,7 +61,6 @@ function moveLine(dir) {
     if (dir === 'up') currLine.pos.y -= 10
     else currLine.pos.y += 10;
 }
-
 
 
 function switchLines() {
@@ -167,7 +82,7 @@ function addLine() {
 function createNewLine() {
     switch (gMeme.lines.length) {
         case 0:
-            var pos = { x: (gElCanvas.width / 2), y: 50 }
+            var pos = { x: (gElCanvas.width / 2), y: 60 }
             break;
         case 1:
             var pos = { x: (gElCanvas.width / 2), y: (gElCanvas.height - 50) }
@@ -190,6 +105,25 @@ function createNewLine() {
     return newLine
 }
 
+function resetMeme() {
+    gMeme = {
+        selectedImgId: 1,
+        selectedLineIdx: 0,
+        lines: [
+            {
+                txt: '',
+                size: 40,
+                align: 'center',
+                color: 'white',
+                stroke: 'black',
+                font: 'Impact',
+                pos: { x: 250, y: 50 },
+                isDrag: false,
+
+            }
+        ]
+    }
+}
 
 
 function removeLine() {
@@ -204,16 +138,12 @@ function changeColor(color, path) {
     currLine[path] = color;
 }
 
-// function setFont(font) {
-//     gMeme.lines[gMeme.selectedLineIdx].font = font;
-// }
-
-// Saved memes
-
-function getSavedMeme(idx) {
-    return (gMemes[idx]);
-
+function setFont(font) {
+    const line = getCurrLine();
+    line.font = font;
 }
+
+
 
 function saveMeme(data) {
     console.log('saving...');
@@ -230,18 +160,6 @@ function saveMeme(data) {
     console.log(gMemes);
     saveToStorage('memesDB', gMemes);
 }
-
-function getSavedMemes() {
-    var memes = loadFromStorage('memesDB');
-    gMemes = memes;
-    return memes;
-}
-
-function removeSavedMeme(idx) {
-    gMemes.splice(idx, 1);
-    saveToStorage('memesDB', gMemes);
-}
-
 
 
 // function isTextClicked(clickedPos) {

@@ -11,7 +11,8 @@ function onInit() {
     gCtx = gElCanvas.getContext('2d')
     renderCanvas();
     renderGallery();
-    addListeners();
+    renderKeywords();
+    // addListeners();
     renderSavedMemes();
 }
 
@@ -43,20 +44,32 @@ function drawText() {
     var lines = getLines();
     if (lines.length === 0) return;
     lines.forEach((line) => {
-        let { txt, size, align, color, stroke, font, pos } = line;
-        if (txt === '') txt = (document.getElementById("line-txt").getAttribute('placeholder'));
-        gCtx.lineWidth = 2;
-        gCtx.setLineDash([]);
-        gCtx.strokeStyle = stroke;
-        gCtx.fillStyle = color;
-        gCtx.font = `${size}px ${font}`;
-        gCtx.textAlign = align;
-        line.width = gCtx.measureText(txt).width;
-        line.height = (gCtx.measureText(txt).fontBoundingBoxDescent) + (gCtx.measureText(txt).fontBoundingBoxAscent);
-        gCtx.fillText(txt.toUpperCase(), pos.x, pos.y);
-        gCtx.strokeText(txt.toUpperCase(), pos.x, pos.y);
-
+        drawLine(line);
     })
+}
+
+function renderKeywords() {
+    const keywords = getKeywords();
+    console.log(keywords)
+    var strHtml = keywords.map(keyword => {
+        return `<option value=${keyword}>`
+    });
+    document.querySelector('#keywords').innerHTML = strHtml.join('');
+}
+
+function drawLine(line) {
+    let { txt, size, align, color, stroke, font, pos } = line;
+    if (txt === '') txt = (document.getElementById("line-txt").getAttribute('placeholder'));
+    gCtx.lineWidth = 2;
+    gCtx.setLineDash([]);
+    gCtx.strokeStyle = stroke;
+    gCtx.fillStyle = color;
+    gCtx.font = `${size}px ${font}`;
+    gCtx.textAlign = align;
+    line.width = (gCtx.measureText(txt).actualBoundingBoxLeft + gCtx.measureText(txt).actualBoundingBoxRight) + 90;
+    line.height = (gCtx.measureText(txt).fontBoundingBoxDescent) + (gCtx.measureText(txt).fontBoundingBoxAscent);
+    gCtx.fillText(txt.toUpperCase(), pos.x, pos.y);
+    gCtx.strokeText(txt.toUpperCase(), pos.x, pos.y);
 }
 
 function clearSelectionRect() {
@@ -121,6 +134,7 @@ function updateCanvas(imgId) {
 
 function clearCanvas() {
     gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height);
+    resetMeme();
 }
 
 
@@ -162,19 +176,21 @@ function onRemoveLine() {
     renderCanvas();
 }
 
-// function onChangeFont(font) {
-//     console.log(font);
-//     switch (font) {
-//         case 'Arial':
-//             setFont('Arial');
-//             break;
-//         case 'ArialB':
-//             setFont('Arial Black');
-//             break;
-//     }
-
-//     renderCanvas();
-// }
+function onChangeFont(font) {
+    // console.log(font);
+    switch (font) {
+        case 'Arial':
+            setFont(font);
+            break;
+        case 'ArialB':
+            setFont('Arial Black');
+            break;
+        case 'Impact':
+            setFont(font);
+            break;
+    }
+    renderCanvas();
+}
 
 function downloadCanvas(elLink) {
     const data = gElCanvas.toDataURL('image/jpeg');
