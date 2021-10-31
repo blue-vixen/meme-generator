@@ -126,6 +126,7 @@ function onSetFilter(filterBy) {
 
 
 function updateCanvas(imgId) {
+    clearCanvas();
     var img = getImageById(imgId);
     gCurrImg = img.url;
     renderImage(gCurrImg)
@@ -133,6 +134,7 @@ function updateCanvas(imgId) {
 }
 
 function clearCanvas() {
+    document.querySelector('#line-txt').value = '';
     gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height);
     resetMeme();
 }
